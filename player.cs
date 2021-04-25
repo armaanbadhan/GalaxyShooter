@@ -36,6 +36,7 @@ public class player : MonoBehaviour
     private float _horizontalSpeed = 7.5f, _verticalSpeed = 7.5f;
 
     private UIManager myUIManager;
+    private GameManager _myGameManager;
 
 
     private void Start()
@@ -47,6 +48,7 @@ public class player : MonoBehaviour
         {
             myUIManager.UpdateLives(_livesRemaining);
         }
+        _myGameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
 
@@ -126,6 +128,8 @@ public class player : MonoBehaviour
             if (_livesRemaining < 1)
             {
                 Instantiate(_explosion, transform.position, Quaternion.identity);
+                _myGameManager.GameOver = true;
+                myUIManager.ShowTitleScreen();
                 Destroy(this.gameObject);
             }
         }
