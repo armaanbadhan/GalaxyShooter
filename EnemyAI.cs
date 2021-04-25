@@ -12,9 +12,9 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -32,27 +32,27 @@ public class EnemyAI : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
         {
-            if (other.tag == "Player")
+            player myplayer = other.GetComponent<player>();
+            if (myplayer != null)
             {
-                player myplayer = other.GetComponent<player>();
-                if (myplayer != null)
-                {
-                    myplayer.Damage();
-                }
-                Instantiate(_enemyExplosion, this.transform.position, Quaternion.identity);
-                Destroy(this.gameObject);
+                myplayer.Damage();
             }
-            
-            else if (other.tag == "Laser")
-            {
-                if (other.transform.parent != null)
-                {
-                    Destroy(other.transform.parent.gameObject);
-                }
-                Destroy(other.gameObject);
-                Instantiate(_enemyExplosion, this.transform.position, Quaternion.identity);
-                Destroy(this.gameObject);
-            }
+            Instantiate(_enemyExplosion, this.transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
         }
+
+        else if (other.tag == "Laser")
+        {
+            if (other.transform.parent != null)
+            {
+                Destroy(other.transform.parent.gameObject);
+            }
+            Destroy(other.gameObject);
+            Instantiate(_enemyExplosion, this.transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
+        }
+    }
 }
