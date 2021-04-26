@@ -40,6 +40,10 @@ public class player : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    [SerializeField]
+    private GameObject[] _engines;
+
+
 
     private void Start()
     {      
@@ -52,6 +56,8 @@ public class player : MonoBehaviour
         }
         _myGameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _audioSource = GetComponent<AudioSource>();
+
+        _livesRemaining = 3;
     }
 
 
@@ -128,6 +134,14 @@ public class player : MonoBehaviour
         else
         {
             _livesRemaining--;
+            if (_livesRemaining == 2)
+            {
+                _engines[0].SetActive(true);
+            }
+            else if (_livesRemaining == 1)
+            {
+                _engines[1].SetActive(true);
+            }
             myUIManager.UpdateLives(_livesRemaining);
             if (_livesRemaining < 1)
             {
