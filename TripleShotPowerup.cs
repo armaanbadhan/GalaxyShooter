@@ -10,11 +10,10 @@ public class TripleShotPowerup : MonoBehaviour
 
     [SerializeField]
     private float _ID;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+    [SerializeField]
+    private AudioClip _clip;
+
 
     // Update is called once per frame
     void Update()
@@ -32,6 +31,7 @@ public class TripleShotPowerup : MonoBehaviour
         if (other.tag == "Player")
         {
             player myplayer = other.GetComponent<player>();
+            AudioSource.PlayClipAtPoint(_clip, Camera.main.transform.position, 1f);
             if (myplayer != null)
             {
                 if (_ID == 0)

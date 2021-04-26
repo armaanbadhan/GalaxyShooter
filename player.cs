@@ -38,6 +38,8 @@ public class player : MonoBehaviour
     private UIManager myUIManager;
     private GameManager _myGameManager;
 
+    private AudioSource _audioSource;
+
 
     private void Start()
     {      
@@ -49,6 +51,7 @@ public class player : MonoBehaviour
             myUIManager.UpdateLives(_livesRemaining);
         }
         _myGameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -67,6 +70,7 @@ public class player : MonoBehaviour
     {
         if (canFire < Time.time)
             {
+                _audioSource.Play();
                 if (_canTripleShot)
                 {
                     Instantiate(_tripleShootPrefab, transform.position, Quaternion.identity);
